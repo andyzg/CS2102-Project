@@ -3,41 +3,39 @@ Database Schema
 
 # User
 
-- id 
-- username PRIMARY KEY
-- email UNIQUE NOT NULL
-- first_name VARCHAR(32)
-- last_name VARCHAR(32)
-- car_id FOREIGN KEY Car
-- is_admin BIT
+- username VARCHAR(32)
+- email VARCHAR(32)
+- first_name VARCHAR(16)
+- last_name VARCHAR(16
+- car_id INTEGER
+- is_admin BINARY
 
 
 # Car
 
-- id
 - license_plate PRIMARY KEY
 
 # Offer
 
-- id
-- owner_id FOREIGN KEY user
-- start VARCHAR(64)
-- destination VARCHAR(64)
-- seats
-- fee
+- offer_id INTEGER
+- owner_username VARCHAR(32)
+- start_location VARCHAR(64)
+- end_location VARCHAR(64)
+- seats INTEGER
+- fee FLOAT(2)
 
 # Request
 
-- id
-- user_id FOREIGN KEY user
-- seats_requested
-- offer_id FOREIGN KEY Offer
-- transaction_id FOREIGN
+- request_id INTEGER
+- username VARCHAR(32)
+- seats_requested INTEGER
+- offer_id INTEGER 
+- transaction_id INTEGER 
 
 # Transaction
 
-- id
-- offer_id
-- request_id
-- user_id
-- transaction_fee
+- transaction_id INTEGER
+- offer_id INTEGER
+- request_id INTEGER
+- username VARCHAR(32)
+- transaction_fee FLOAT(2)
