@@ -19,7 +19,7 @@ $dbconn = pg_connect("host=localhost port=5432 dbname=carpool user=postgres pass
 
         <select name="Language"> <option value="">Select Language</option>
         <?php
-        $query = 'SELECT DISTINCT language FROM book';
+        $query = 'SELECT DISTINCT license_plate FROM Cars';
         $result = pg_query($query) or die('Query failed: ' . pg_last_error());
          
         while($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
