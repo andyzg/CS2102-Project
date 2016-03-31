@@ -8,8 +8,7 @@
 </td> </tr>
 
 <?php
-$dbconn = pg_connect("host=localhost port=5432 dbname=carpool user=postgres password=poiu")
-    or die('Could not connect: ' . pg_last_error());
+require('database_connection.php');
 ?>
 
 <tr>
@@ -23,7 +22,7 @@ $dbconn = pg_connect("host=localhost port=5432 dbname=carpool user=postgres pass
         End: <input type="text" name="end" id="end">
 
         <?php
-        $query = 'SELECT license_plate FROM carpool.carpool.cars';
+        $query = 'SELECT license_plate FROM cars';
         $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
         while($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
@@ -40,7 +39,7 @@ $dbconn = pg_connect("host=localhost port=5432 dbname=carpool user=postgres pass
 
 if(isset($_GET['formSubmit']))
 {
-    $query = "SELECT seats, fee, start_location, end_location FROM carpool.carpool.offers WHERE start_location like '%".$_GET['start']."%' AND end_location LIKE '%".$_GET['end']."%'";
+    $query = "SELECT seats, fee, start_location, end_location, offer_id FROM offers WHERE start_location like '%".$_GET['start']."%' AND end_location LIKE '%".$_GET['end']."%'";
     # echo "<b>SQL:   </b>".$query."<br><br>";
     $result = pg_query($query) or die('Query failed: ' . pg_last_error());
     echo "<table border=\"1\" >
@@ -64,13 +63,13 @@ if(isset($_GET['formSubmit']))
     $count = 1;
     while ($row = pg_fetch_row($result)) {
       echo "<tr>";
-      echo "<td>" . $count . "</td>";
+      echo "<td>" . $row[4] . "</td>";
       echo "<td>" . $row[0] . " seats</td>";
       echo "<td>$" . $row[1] . "</td>";
       echo "<td>" . $row[2] . "</td>";
       echo "<td>" . $row[3] . "</td>";
       echo "<td><input type='submit' value='Book'</input></td>";
-      echo "<td><input type='submit' value='Remove'</input></td>";
+      echo "<td><form action='booking.php' method='POST'><input type='hidden' name='id' value='$row[4]'><input type='submit' name='action' value='Remove'></form></td>";
       echo "</tr>";
       $count++;
     }
