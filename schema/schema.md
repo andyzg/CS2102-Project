@@ -8,7 +8,7 @@ Database Schema
 - first_name VARCHAR(16)
 - last_name VARCHAR(16
 - car_id INTEGER
-- is_admin BINARY
+- is_admin BOOLEAN
 
 
 # Car
@@ -29,8 +29,8 @@ Database Schema
 - request_id INTEGER
 - username VARCHAR(32)
 - seats_requested INTEGER
-- offer_id INTEGER 
-- transaction_id INTEGER 
+- offer_id INTEGER
+- transaction_id INTEGER
 
 # Transaction
 

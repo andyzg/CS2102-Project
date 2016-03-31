@@ -4,7 +4,7 @@ CREATE TABLE Users (
   first_name VARCHAR(16) NOT NULL,
   last_name VARCHAR(16) NOT NULL,
   car_id INTEGER,
-  is_admin BIT
+  is_admin BOOLEAN
 );
 
 CREATE TABLE Cars (
