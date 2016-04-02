@@ -21,6 +21,7 @@ if ($action == 'Add offer'){
 	$fee = $_POST['fee'];
 	$owner_username = 'a'; //should be a logged in user. user "a" exists.
 	add_offer($seats, $end, $start, $fee, $owner_username);
+	header("Location: main.php".$query_param);
 }
 
 function remove_row($id, $table, $table_id){
@@ -36,5 +37,4 @@ function add_offer($seats, $end, $start, $fee, $owner_username){
 	++$offer_id;
 	$add_query = "INSERT INTO offers (offer_id, owner_username, start_location, end_location, seats, fee) VALUES ($offer_id, '$owner_username', '$start', '$end', $seats, $fee)";
 	pg_query($add_query) or die('Query failed: ' . pg_last_error());
-	header("Location: main.php");
 }

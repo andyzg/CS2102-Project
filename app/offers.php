@@ -54,7 +54,6 @@ if(isset($_GET['formSubmit']))
     echo "</tr>";
 
 
-    $count = 1;
     while ($row = pg_fetch_row($result)) {
       echo "<tr>";
       echo "<td>" . $row[4] . "</td>";
@@ -62,12 +61,11 @@ if(isset($_GET['formSubmit']))
       echo "<td>$" . $row[1] . "</td>";
       echo "<td>" . $row[2] . "</td>";
       echo "<td>" . $row[3] . "</td>";
-      echo "<td><form action='book.php' method='POST'><input type='hidden' name='username' value='".$_GET['username']."'><input type='hidden' name='is_admin' value='".$_GET['is_admin']."'><input type='hidden' name='id' value='$row[4]'><input type='submit' name='action' value='Book'></form></td>";
+      echo "<td><form action='book.php' method='POST'><input type='hidden' name='username' value='".$_GET['username']."'><input type='hidden' name='is_admin' value='".$_GET['is_admin']."'><input type='hidden' name='start_location' value='$row[2]'><input type='hidden' name='end_location' value='$row[3]'><input type='hidden' name='id' value='$row[4]'><input type='submit' name='action' value='Book'></form></td>";
       if ($_GET['is_admin'] == 't') {
         echo "<td><form action='booking.php' method='POST'><input type='hidden' name='username' value='".$_GET['username']."'><input type='hidden' name='is_admin' value='".$_GET['is_admin']."'><input type='hidden' name='id' value='$row[4]'><input type='submit' name='action' value='Remove offer'></form></td>";
       }
       echo "</tr>";
-      $count++;
     }
     echo "</table>";
 
