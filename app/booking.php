@@ -2,14 +2,17 @@
 require('database_connection.php');
 
 $action = $_POST["action"];
+$query_param = "?username=".$_POST['username']."&is_admin=".$_POST['is_admin'];
 
 if ($action == 'Remove offer') {
 	$id = $_POST['id'];
 	remove_row($id, 'offers', 'offer_id');
+	header("Location: main.php".$query_param);
 }
 if ($action == 'Remove request') {
 	$id = $_POST['id'];
 	remove_row($id, 'requests', 'request_id');
+	header("Location: main.php".$query_param);
 }
 if ($action == 'Add offer'){
 	$seats = $_POST['seats'];
@@ -21,9 +24,8 @@ if ($action == 'Add offer'){
 }
 
 function remove_row($id, $table, $table_id){
-	$query = "DELETE FROM $table WHERE $table_id = $id"; 
+	$query = "DELETE FROM carpool.carpool.$table WHERE $table_id = $id";
 	pg_query($query) or die('Query failed: ' . pg_last_error());
-	header("Location: main.php");
 }
 
 function add_offer($seats, $end, $start, $fee, $owner_username){
