@@ -11,10 +11,6 @@ Database Schema
 - is_admin BOOLEAN
 
 
-# Car
-
-- license_plate PRIMARY KEY
-
 # Offer
 
 - offer_id INTEGER
