@@ -7,7 +7,7 @@ Database Schema
 - email VARCHAR(32)
 - first_name VARCHAR(16)
 - last_name VARCHAR(16
-- car_id INTEGER
+- car_plate CHAR(8)
 - is_admin BOOLEAN
 
 
