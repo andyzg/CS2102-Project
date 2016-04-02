@@ -6,6 +6,9 @@
 
 <?php
 require('header.php');
+if (!isset($_GET['username'])) {
+  header("Location: http://localhost:8080/CS2102-Project/app/index.php");
+}
 require('database_connection.php');
 ?>
 
