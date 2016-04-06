@@ -8,5 +8,7 @@ echo "<br>";
 echo "<a href='offers.php?username=".$_GET['username']."&is_admin=".$_GET['is_admin']."'>Offers</a>";
 echo "<br>";
 echo "<a href='requests.php?username=".$_GET['username']."&is_admin=".$_GET['is_admin']."'>Requests</a>";
+echo "<br>";
+echo "<a href='index.php'>Log Out</a>";
 ?>
 </td> </tr>

@@ -16,7 +16,7 @@ require('database_connection.php');
 
 
 
-    $query = "SELECT request_id, seats_requested FROM requests";
+    $query = "SELECT request_id, seats_requested FROM carpool.carpool.requests";
     # echo "<b>SQL:   </b>".$query."<br><br>";
     $result = pg_query($query) or die('Query failed: ' . pg_last_error());
     echo "<table border=\"1\" >
