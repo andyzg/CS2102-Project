@@ -13,26 +13,25 @@ require('database_connection.php');
 <td style="background-color:#eeeeee;">
 
 <?php
-    
-    //only admins
-    if ($_GET['is_admin'] != "t") {
-      header("Location: http://localhost:8080/CS2102-Project/app/index.php");
-    }
 
-    $query = "SELECT request_id, seats_requested FROM carpool.carpool.requests";
-    # echo "<b>SQL:   </b>".$query."<br><br>";
+    //can only see your own offers
+    $query = "SELECT r.request_id, r.seats_requested, o.seats, r.offer_id, r.username FROM carpool.carpool.requests r, carpool.carpool.offers o WHERE o.offer_id = r.offer_id AND o.owner_username = '".$_GET['username']."'";
     $result = pg_query($query) or die('Query failed: ' . pg_last_error());
     echo "<table border=\"1\" >
+    <col width=\"10%\">
     <col width=\"20%\">
+
     <col width=\"20%\">
-    <col width=\"25%\">
-    <col width=\"25%\">
-    <col width=\"5%\">
-    <col width=\"5%\">
+    <col width=\"30%\">
+
+    <col width=\"10%\">
+    <col width=\"10%\">
     <tr>
     <th>#</th>
-    <th>Seats</th>
-    <th>Book</th>
+    <th>Seats Requested</th>
+    <th>Seats Left</th>
+    <th>Requester</th>
+    <th>Accept</th>
     <th>Remove</th>
     </tr>";
 
@@ -42,8 +41,10 @@ require('database_connection.php');
       echo "<tr>";
       echo "<td>" . $row[0] . "</td>";
       echo "<td>" . $row[1] . " seats</td>";
-      echo "<td><input type='submit' value='Book'</input></td>";
-      echo "<td><form action='booking.php' method='POST'><input type='hidden' name='id' value='$row[0]'><input type='submit' name='action' value='Remove request'></form></td>";
+      echo "<td>" . $row[2] . " seats</td>";
+      echo "<td>" . $row[4] . "</td>";
+      echo "<td><form action='booking.php' method='POST'><input type='submit' name='action' value='Accept request'><input type='hidden' name='id' value='$row[0]'><input type='hidden' name='seats' value='$row[1]'><input type='hidden' name='offer_id' value='$row[3]'><input type='hidden' name='username' value='".$_GET['username']."'><input type='hidden' name='".$_GET['is_admin']."' value='$row[3]'></form></td>";
+      echo "<td><form action='booking.php' method='POST'><input type='submit' name='action' value='Remove request'><input type='hidden' name='id' value='$row[0]'></form></td>";
       echo "</tr>";
       $count++;
     }

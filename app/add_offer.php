@@ -25,9 +25,6 @@ require('header.php');
         <input type="hidden" name="is_admin" value="<?php echo $_GET['is_admin']; ?>" />
 </form>
 </td> </tr>
-<?php
-pg_close($dbconn);
-?>
 <tr>
 <td colspan="2" style="background-color:#6EB3F0; text-align:center;"> Copyright &#169; CS2102
 </td> </tr>

@@ -2,8 +2,8 @@
 require('database_connection.php');
 
 $action = $_POST["action"];
-$user = $_POST['username'];
-$isadmin = $_POST['is_admin'];
+$user = $_POST["username"];
+$isadmin = $_POST["is_admin"];
 $query_param = "?username=".$user."&is_admin=".$isadmin;
 
 if ($action == 'Remove offer') {
@@ -16,14 +16,43 @@ if ($action == 'Remove request') {
 	remove_row($id, 'requests', 'request_id');
 	header("Location: main.php".$query_param);
 }
+if ($action == 'Accept request') {
+	$id = $_POST['id'];
+	$seats = $_POST['seats'];
+
+	//decrement available
+	decrement_offer($_POST['offer_id'], $seats);
+
+	//remove request
+	remove_row($id, 'requests', 'request_id');
+
+	//refresh page
+	header("Location: requests.php".$query_param);
+}
 if ($action == 'Add offer'){
 	$seats = $_POST['seats'];
 	$end = $_POST['end'];
 	$start = $_POST['start'];
 	$fee = $_POST['fee'];
-	$owner_username = 'a'; //should be a logged in user. user "a" exists.
+	$owner_username = $user; //blahh
 	add_offer($seats, $end, $start, $fee, $owner_username);
 	header("Location: offers.php?start=".$start."&end=".$end."&username=".$user."&is_admin=".$isadmin."&formSubmit=Search");
+}
+
+function decrement_offer($offer_id, $seats) {
+	//find the number of seats in offer
+	$seat_query = "SELECT seats FROM carpool.carpool.offers WHERE offer_id = $offer_id";
+	$seat_result = pg_query($seat_query) or die('Query failed: ' . pg_last_error());
+	$row = pg_fetch_row($seat_result);
+	$current = (int)$row[0];
+
+	$update_query = "UPDATE carpool.carpool.offers SET seats = ".($current - $seats)." WHERE offer_id = $offer_id";
+	$update_result = pg_query($update_query) or die('Query failed: ' . pg_last_error());
+
+	//no seats left, no offer left
+	if($current - $seats == 0) {
+		remove_row($offer_id, 'offers', 'offer_id');
+	}
 }
 
 function remove_row($id, $table, $table_id){
