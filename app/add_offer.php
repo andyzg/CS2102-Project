@@ -21,6 +21,8 @@ require('header.php');
         Fee: <input type="text" name="fee" id="fee">
         <p></p>
         <input type="submit" name="action" value="Add offer" >
+        <input type="hidden" name="username" value="<?php echo $_GET['username']; ?>" />
+        <input type="hidden" name="is_admin" value="<?php echo $_GET['is_admin']; ?>" />
 </form>
 </td> </tr>
 <?php
