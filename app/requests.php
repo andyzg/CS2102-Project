@@ -13,8 +13,11 @@ require('database_connection.php');
 <td style="background-color:#eeeeee;">
 
 <?php
-
-
+    
+    //only admins
+    if ($_GET['is_admin'] != "t") {
+      header("Location: http://localhost:8080/CS2102-Project/app/index.php");
+    }
 
     $query = "SELECT request_id, seats_requested FROM carpool.carpool.requests";
     # echo "<b>SQL:   </b>".$query."<br><br>";

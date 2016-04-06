@@ -7,8 +7,13 @@ echo "<a href='add_offer.php?username=".$_GET['username']."&is_admin=".$_GET['is
 echo "<br>";
 echo "<a href='offers.php?username=".$_GET['username']."&is_admin=".$_GET['is_admin']."'>Offers</a>";
 echo "<br>";
-echo "<a href='requests.php?username=".$_GET['username']."&is_admin=".$_GET['is_admin']."'>Requests</a>";
-echo "<br>";
+
+//only admins can manage requests
+if($_GET['is_admin'] == "t") {
+	echo "<a href='requests.php?username=".$_GET['username']."&is_admin=".$_GET['is_admin']."'>Requests</a>";
+	echo "<br>";
+}
+
 echo "<a href='index.php'>Log Out</a>";
 ?>
 </td> </tr>

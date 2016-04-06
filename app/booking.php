@@ -30,7 +30,7 @@ function remove_row($id, $table, $table_id){
 }
 
 function add_offer($seats, $end, $start, $fee, $owner_username){
-	$query = "SELECT COUNT(*) FROM offers";
+	$query = "SELECT COUNT(*) FROM carpool.carpool.offers";
 	$count_result = pg_query($query) or die('Query failed: ' . pg_last_error());
 	$row = pg_fetch_row($count_result);
 	$offer_id = 100+(int)$row[0]; // very unsafe
